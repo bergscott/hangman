@@ -2,8 +2,6 @@
 
 Command line Hangman game.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
