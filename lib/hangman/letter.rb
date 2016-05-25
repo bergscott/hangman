@@ -15,5 +15,17 @@ module Hangman
       value
     end
 
+    def try_guess(guess)
+      @guessed = true if match?(guess)
+    end
+
+    def match?(guess)
+      value == guess
+    end
+
+    def guessed?
+      guessed
+    end
+
   end
 end

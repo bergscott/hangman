@@ -13,5 +13,17 @@ module Hangman
     def reveal
       letters.map { |letter| letter.reveal }.join
     end
+
+    def solved?
+      letters.all? { |letter| letter.guessed? }
+    end
+
+    def good_guess?(guess)
+      letters.any? { |letter| letter.match?(guess) }
+    end
+
+    def update(guess)
+      letters.each { |letter| letter.try_guess(guess) unless letter.guessed? }
+    end
   end
 end

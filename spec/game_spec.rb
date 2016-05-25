@@ -23,6 +23,14 @@ module Hangman
         game = Game.new(dict_fname: test_fname, min_ch: 5, max_ch: 12)
         expect(game.word.reveal).to eq target_word
       end
+      it "is created with 6 guesses left by default" do
+        game = Game.new
+        expect(game.guesses_left).to eq 6
+      end
+      it "is sets @letters_guessed to an empty list" do
+        game = Game.new
+        expect(game.letters_guessed).to eq []
+      end
     end
 
   end
