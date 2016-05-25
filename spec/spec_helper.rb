@@ -1,2 +1,1 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'hangman'
+require_relative '../lib/hangman'
