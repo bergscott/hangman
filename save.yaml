@@ -1,0 +1,37 @@
+--- !ruby/object:Hangman::Game
+min_ch: 5
+max_ch: 12
+word: !ruby/object:Hangman::Word
+  letters:
+  - !ruby/object:Hangman::Letter
+    value: s
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: t
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: r
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: i
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: c
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: t
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: u
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: r
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: e
+    guessed: false
+  - !ruby/object:Hangman::Letter
+    value: d
+    guessed: false
+guesses_left: 6
+letters_guessed: []

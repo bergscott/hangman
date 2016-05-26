@@ -1,6 +1,37 @@
 module Hangman
 
   class Game
+    require 'yaml'
+    
+    def self.load(fname=default_save_fname)
+      YAML::load(File.read(fname)).play
+    end
+
+    def self.start
+      print "(N)ew game or (L)oad saved game?: "
+      loop do
+        case gets.chomp.downcase[0]
+        when "n"
+          puts "Starting new game... "
+          return self.new.play
+        when "l"
+          if File.exist?(default_save_fname)
+            puts "Starting last saved game... "
+            return self.load
+          else
+            puts "No save game found. Starting new game..."
+            return self.new.play
+          end
+        else
+          print "Invalid response. Try again: "
+        end
+      end
+    end
+
+    def self.default_save_fname
+      "save.yaml"
+    end
+
     attr_reader :word, :letters_guessed, :guesses_left
 
     def initialize(input={})
@@ -8,7 +39,7 @@ module Hangman
       @max_ch = input.fetch(:max_ch, 12)
       @word = Word.new(input.fetch(:word,
                                    random_word(input.fetch(:dict_fname,
-                                                           default_fname))))
+                                                           default_dict_fname))))
       @guesses_left = input.fetch(:guesses, 6)
       @letters_guessed = []
     end
@@ -25,9 +56,13 @@ module Hangman
       puts end_msg(lose? ? "lose" : "win")
     end
 
+    def save(fname=self.class.default_save_fname)
+      File.open(fname, 'w') { |file| file.puts(YAML::dump(self)) }
+    end
+
     private
 
-    def random_word(fname=default_fname)
+    def random_word(fname=default_dict_fname)
       File.open(fname, "r") do |file|
         word = ""
         words = file.readlines
@@ -65,11 +100,18 @@ module Hangman
     end
 
     def get_guess
-      print "Guess a letter: "
+      print "Guess a letter or type 'save' to save and quit: "
       loop do
         guess = gets.chomp.downcase.strip
-        return guess if valid_guess?(guess)
-        print "Invalid guess, try again: "
+        if guess == "save"
+          save
+          puts "Game saved!"
+          puts "Goodbye!"
+          exit
+        else
+          return guess if valid_guess?(guess)
+          print "Invalid guess, try again: "
+        end
       end
     end
 
@@ -105,9 +147,10 @@ module Hangman
       "Guesses remaining: #{guesses_left}"
     end
 
-    def default_fname
+    def default_dict_fname
       "5desk.txt"
     end
+
 
   end
 end
