@@ -65,16 +65,16 @@ module Hangman
     end
 
     def get_guess
-      puts "Guess a letter: "
+      print "Guess a letter: "
       loop do
-        guess = gets.chomp.downcase.strip[0]
+        guess = gets.chomp.downcase.strip
         return guess if valid_guess?(guess)
-        puts "Invalid guess, try again: "
+        print "Invalid guess, try again: "
       end
     end
 
     def valid_guess?(guess) 
-      !guess.match(/[a-z]/).nil? && !letters_guessed.include?(guess)
+      !guess.match(/^[a-z]$/).nil? && !letters_guessed.include?(guess)
     end
 
     def lose?

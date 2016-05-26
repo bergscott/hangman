@@ -41,5 +41,41 @@ module Hangman
       end
     end
 
+    context "#try_guess" do
+      it "sets @guessed to true if the guess matches its value" do
+        letter = Letter.new("a")
+        letter.try_guess("a")
+        expect(letter.guessed).to eq true
+      end
+      it "does nothing if the guess does not match its value" do
+        letter = Letter.new("a")
+        letter.try_guess("b")
+        expect(letter.guessed).to eq false
+      end
+    end
+
+    context "#match" do
+      it "returns true if the guess matches its value" do
+        letter = Letter.new("a")
+        expect(letter.match?("a")).to eq true
+      end
+      it "returns false if the guess does not match its value" do
+        letter = Letter.new("a")
+        expect(letter.match?("b")).to eq false
+      end
+    end
+
+    context "#guessed?" do
+      it "returns false if the letter has not been guessed" do
+        letter = Letter.new("a")
+        expect(letter.guessed?).to eq false
+      end
+      it "returns ture if the letter has been guessed correctly" do
+        letter = Letter.new("a")
+        letter.try_guess("a")
+        expect(letter.guessed?).to eq true
+      end
+    end
+
   end
 end
